@@ -1,0 +1,29 @@
+{
+  "name": "typescript-jest-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc --watch",
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build": "tsc --project tsconfig.build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshfaqKabir/Typescript-Jest-Boilerplate.git"
+  },
+  "keywords": [],
+  "author": "ASHFAQ KABIR",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AshfaqKabir/Typescript-Jest-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/AshfaqKabir/Typescript-Jest-Boilerplate#readme",
+  "devDependencies": {
+    "@types/jest": "^29.2.6",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.9.4"
+  }
+}
