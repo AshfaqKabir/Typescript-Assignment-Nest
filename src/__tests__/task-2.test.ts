@@ -1,14 +1,77 @@
 import { Cart, myCart } from "../task-2";
 
-// jest.mock("../task-2");
+describe("Implementing SpyOn on Cart Methods with Parameters", () => {
+  // Explicity Created for Testing Spies
+  const myTestCard = new Cart();
 
-describe("Checking the Instance of cart Class", () => {
-  // const customCart = jest.spyOn(myCart)
+  // addToCart Method Parameter SpyOn
+  it(`addToCart Spy should be called with Parameters {id: 5, title: "cheese", unitPrice: 10, quantity: 5}`, () => {
+    const addCartSpy = jest.spyOn(Cart.prototype, "addToCart");
+    myTestCard.addToCart(5, "cheese", 10, 5);
+
+    expect(addCartSpy).toHaveBeenCalledWith(5, "cheese", 10, 5);
+  });
+
+  // removeFromCart Method Parameter SpyOn
+  it("Remove Cart Spy should be called with Parameters {id: 5, quantity: 2}", () => {
+    const removeCartSpy = jest.spyOn(Cart.prototype, "removeFromCart");
+    myTestCard.addToCart(5, "cheese", 10, 5);
+    myTestCard.removeFromCart(5, 2);
+
+    expect(removeCartSpy).toHaveBeenCalledWith(5, 2);
+  });
+
+  // applyDiscountCode Method Parameter SpyOn
+  it("applyDiscountCode Cart Spy should be called with Parameters {id: 5, discountCode: 'DISCOUNT_10'}", () => {
+    const discountCodeSpy = jest.spyOn(Cart.prototype, "applyDiscountCode");
+    myTestCard.addToCart(5, "cheese", 10, 5);
+    myTestCard.applyDiscountCode(5, "DISCOUNT_10");
+
+    expect(discountCodeSpy).toHaveBeenCalledWith(5, "DISCOUNT_10");
+  });
+
+  // applyCartDiscountCode Method Parameter SpyOn
+  it("applyDiscountCode Cart Spy should be called with Parameters {discountCode: 'DISCOUNT_30'}", () => {
+    const cartDiscountCodeSpy = jest.spyOn(
+      Cart.prototype,
+      "applyCartDiscountCode"
+    );
+    myTestCard.addToCart(5, "cheese", 10, 5);
+    myTestCard.applyCartDiscountCode("DISCOUNT_30");
+
+    expect(cartDiscountCodeSpy).toHaveBeenCalledWith("DISCOUNT_30");
+  });
+
+  // getItemQuantity Method Parameter SpyOn
+  it("getItemQuantity Cart Spy should be called with Parameters {id: 5}", () => {
+    const getItemQuantitySpy = jest.spyOn(Cart.prototype, "getItemQuantity");
+    myTestCard.addToCart(5, "cheese", 10, 5);
+    myTestCard.getItemQuantity(5);
+
+    expect(getItemQuantitySpy).toHaveBeenCalledWith(5);
+  });
+
+  // getItemTotalPrice Method Parameter SpyOn
+  it("getItemTotalPrice Cart Spy should be called with Parameters {id: 5}", () => {
+    const getItemTotalPriceSpy = jest.spyOn(
+      Cart.prototype,
+      "getItemTotalPrice"
+    );
+    myTestCard.addToCart(5, "cheese", 10, 5);
+    myTestCard.getItemTotalPrice(5);
+
+    expect(getItemTotalPriceSpy).toHaveBeenCalledWith(5);
+  });
+});
+
+// Checking if myCart Is an Instance of Cart Class
+describe("Checking the Instance of Cart Class", () => {
   it("myCart Should be a instance of Cart", () => {
     expect(myCart).toBeInstanceOf(Cart);
   });
 });
 
+// Testing Cart Class Functionalities
 describe("Tests for Class Functionality", () => {
   // ADD ITEM
   it("myCart Length After adding 4 Items Should be 4", () => {
