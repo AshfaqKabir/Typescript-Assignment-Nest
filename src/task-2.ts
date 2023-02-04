@@ -10,8 +10,10 @@ interface CartInterface {
   removeFromCart(id: number, quantity: number): void;
   applyDiscountCode(id: number, discountCode: string): void;
   applyCartDiscountCode(discountCode: string): number;
+  getItemQuantity(id: number): number | string;
   getItemTotalPrice(id: number): number | string;
   getTotalPrice(): number;
+  getCartLength(): number;
   getCartItems(): {}[];
 }
 
@@ -39,7 +41,7 @@ const cartDiscountCodes: { [key: string]: number } = {
   DISCOUNT_30: 30,
 };
 
-class Cart implements CartInterface {
+export class Cart implements CartInterface {
   // Constructor
   constructor(private cartItems: CartItems[] = []) {}
 
@@ -114,6 +116,12 @@ class Cart implements CartInterface {
     return Number(total.toFixed(2));
   }
 
+  // Get Quantity of an Item
+  getItemQuantity(id: number): number | string {
+    let itemIsListed = this.cartItems.find((item) => item.id == id);
+    return itemIsListed ? itemIsListed.quantity : "Item Not In The List";
+  }
+
   // RETURNS TOTAL ITEM PRICE
   getItemTotalPrice(id: number): number | string {
     let itemIsListed = this.cartItems.find((item) => item.id == id);
@@ -130,21 +138,26 @@ class Cart implements CartInterface {
     return totalPrice;
   }
 
+  // RETURNS THE CART LENGTH
+  getCartLength(): number {
+    return this.cartItems.length;
+  }
+
   // RETURNS THE WHOLE CART
   getCartItems(): {}[] {
     return this.cartItems;
   }
 }
 
-const myCart = new Cart();
-myCart.addToCart(3346, "Book", 10, 5);
-myCart.addToCart(3356, "Booksasda", 10, 5);
-// myCart.addToCart(3346, "Book", 10, 4);
-// myCart.removeFromCart(3346, 8);
-// myCart.applyDiscountCode(3346, "DISCOUNT_10");
-// myCart.applyCartDiscountCode("DISCOUNT_10");
-console.log(myCart.getCartItems());
-console.log(myCart.getItemTotalPrice(3346));
-console.log(myCart.applyCartDiscountCode("DISCOUNT_10"));
+export const myCart = new Cart();
+// myCart.addToCart(3346, "Book", 10, 5);
+// myCart.addToCart(3356, "Booksasda", 10, 5);
+// // myCart.addToCart(3346, "Book", 10, 4);
+// // myCart.removeFromCart(3346, 8);
+// // myCart.applyDiscountCode(3346, "DISCOUNT_10");
+// // myCart.applyCartDiscountCode("DISCOUNT_10");
+// console.log(myCart.getCartItems());
+// console.log(myCart.getItemTotalPrice(3346));
+// console.log(myCart.applyCartDiscountCode("DISCOUNT_10"));
 
-export {};
+// export {};
